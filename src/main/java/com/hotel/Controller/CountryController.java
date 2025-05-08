@@ -1,4 +1,4 @@
-package com.Hotel.Controller;
+package com.hotel.Controller;
 
 
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ public class CountryController {
 //    public ResponseEntity<String> addCountry(){
 //        return new ResponseEntity<>("added", HttpStatus.CREATED);
 //    }
-    @PostMapping
+    @PostMapping("/addCountry")
     public String addCountry(){
         System.out.println("added");
         return "added successfully";

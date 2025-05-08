@@ -1,4 +1,4 @@
-package com.Hotel;
+package com.hotel;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

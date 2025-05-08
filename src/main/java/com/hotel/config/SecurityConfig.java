@@ -1,4 +1,4 @@
-package com.Hotel.config;
+package com.hotel.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,17 +14,24 @@ import static org.apache.catalina.webresources.TomcatURLStreamHandlerFactory.dis
 public class SecurityConfig {
 
     private final JWTFilter filter;
+
     public SecurityConfig(JWTFilter filter) {
         this.filter = filter;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().disable();
-               http.addFilterBefore(filter, AuthorizationFilter.class);
-         return http.build();
-    }
-    // Optional: BCryptPasswordEncoder bean if you’re using password hashing anywhere
+        http.csrf().disable().cors().disable();  //h(cd)2
+        http.addFilterBefore(filter, AuthorizationFilter.class);
+        http.authorizeHttpRequests().anyRequest().permitAll(); //haap
 
+        //this all code only mentioned url anybody can access other url need to authenticate
+//        http.authorizeHttpRequests().requestMatchers("/api/v1/users/login",
+//                        "/api/v1/users/signup",
+//                        "/api/v1/users/signup-property-owner")
+//                .permitAll().requestMatchers("/api/v1/country/addCountry").hasAnyRole("OWNER","ADMIN").
+//                anyRequest().authenticated();
+            return http.build();
+}
 
 }

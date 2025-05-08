@@ -1,4 +1,4 @@
-package com.Hotel.Entity;
+package com.hotel.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -6,10 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
 @Entity
 @Table(name = "app_user")
 public class AppUser {
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -27,8 +27,19 @@ public class AppUser {
     @Column(name = "password", nullable = false, length = 1000)
     private String password;
 
+    @Column(name = "role", nullable = false, length = 30)
+    private String role;
+
     public Long getId() {
         return id;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setId(Long id) {

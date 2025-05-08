@@ -1,10 +1,10 @@
-package com.Hotel.Controller;
+package com.hotel.Controller;
 
-import com.Hotel.Entity.AppUser;
-import com.Hotel.Repository.AppUserRepository;
-import com.Hotel.UserService.UserService;
-import com.Hotel.payload.LoginDto;
-import com.Hotel.payload.TokenDto;
+import com.hotel.Entity.AppUser;
+import com.hotel.Repository.AppUserRepository;
+import com.hotel.UserService.UserService;
+import com.hotel.payload.LoginDto;
+import com.hotel.payload.TokenDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -16,8 +16,8 @@ import java.util.Optional;
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-    private final AppUserRepository userRepository;
-    private final UserService userService;
+    private  AppUserRepository userRepository;
+    private  UserService userService;
 
     public UserController(AppUserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
@@ -40,7 +40,7 @@ public class UserController {
         // Encrypt and save
         String encryptedPassword = BCrypt.hashpw(appUser.getPassword(), BCrypt.gensalt(8));
         appUser.setPassword(encryptedPassword); // Encrypt password directly on user object
-
+       appUser.setRole("ROLE_USER");
         AppUser savedUser = userRepository.save(appUser);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
@@ -56,5 +56,26 @@ public class UserController {
         } else {
             return new ResponseEntity<>("Invalid username/password", HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @PostMapping("/signup-property-owner")
+    public ResponseEntity<?> createPropertyOwner(@RequestBody AppUser appUser) {
+
+        Optional<AppUser> opUsername = userRepository.findByusername(appUser.getUsername());
+        if (opUsername.isPresent()) {
+            return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<AppUser> opEmail = userRepository.findByemail(appUser.getEmail());
+        if (opEmail.isPresent()) {
+            return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
+        }
+
+        // Encrypt and save
+        String encryptedPassword = BCrypt.hashpw(appUser.getPassword(), BCrypt.gensalt(8));
+        appUser.setPassword(encryptedPassword); // Encrypt password directly on user object
+        appUser.setRole("ROLE_OWNER");
+        AppUser savedUser = userRepository.save(appUser);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 }

@@ -1,8 +1,8 @@
-package com.Hotel.UserService;
+package com.hotel.UserService;
 
-import com.Hotel.Entity.AppUser;
-import com.Hotel.Repository.AppUserRepository;
-import com.Hotel.payload.LoginDto;
+import com.hotel.Entity.AppUser;
+import com.hotel.Repository.AppUserRepository;
+import com.hotel.payload.LoginDto;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 

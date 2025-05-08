@@ -1,4 +1,4 @@
-package com.Hotel.UserService;
+package com.hotel.UserService;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

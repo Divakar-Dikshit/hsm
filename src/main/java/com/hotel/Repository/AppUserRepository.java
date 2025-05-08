@@ -1,6 +1,6 @@
-package com.Hotel.Repository;
+package com.hotel.Repository;
 
-import com.Hotel.Entity.AppUser;
+import com.hotel.Entity.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
